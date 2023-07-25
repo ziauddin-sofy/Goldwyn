@@ -1,0 +1,37 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/Quicksand-Bold.otf",
+      "sha1": "931cde819d5c3057923620f72ba8a5cdf53a6ba1"
+    },
+    {
+      "path": "assets/fonts/Quicksand-Light.otf",
+      "sha1": "41a9f7713d57aef0128bebca34d233345c1fae26"
+    },
+    {
+      "path": "assets/fonts/quicksand.book-regular.otf",
+      "sha1": "63a1c72addf5c0a5f6d931275b02a94222842115"
+    },
+    {
+      "path": "assets/fonts/Quicksand_Bold_Oblique.otf",
+      "sha1": "85da01e7b9d02bf0fb00fc8f17ea568e9bade9ed"
+    },
+    {
+      "path": "assets/fonts/Quicksand_Book.otf",
+      "sha1": "63a1c72addf5c0a5f6d931275b02a94222842115"
+    },
+    {
+      "path": "assets/fonts/Quicksand_Book_Oblique.otf",
+      "sha1": "b267d652f12a962fc3b76eca5bc940b5e78a5e05"
+    },
+    {
+      "path": "assets/fonts/Quicksand_Dash.otf",
+      "sha1": "06c02e63a27e070c7ca9c4fb34488e3d99e8dc20"
+    },
+    {
+      "path": "assets/fonts/Quicksand_Light_Oblique.otf",
+      "sha1": "f60a5a0d29a3a167eb5272c4211c31132f1d1c7e"
+    }
+  ]
+}
