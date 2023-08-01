@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import {useEffect, useRef, useState} from 'react';
 import BackButton from '../../components/BackButton';
+import AuthFooterText from '../../components/AuthFooterText';
 
 const {
   ImageBackground,
@@ -13,36 +14,72 @@ const {
 const {width, height} = Dimensions.get('screen');
 
 const EnterOTP = () => {
-  const handleBackClick = () => {};
-  const [otp,setOtp] = useState({
-    first:{
-        value:'',
-        isFocused:false
-    },
-    second:{
-        value:'',
-        isFocused:false
-    },
-    third:{
-        value:'',
-        isFocused:false
-    },
-    fourth:{
-        value:'',
-        isFocused:false
-    },
-  })
+  const inputRefs = {
+    first: useRef(null),
+    second: useRef(null),
+    third: useRef(null),
+    fourth: useRef(null),
+  };
 
-  const handleFocussed = (name) =>{
-    let newOtp = {...otp}
-    newOtp[name].isFocused = true
-    setOtp(newOtp)
-  }
-  const handleBlurred = (name) =>{
-    let newOtp = {...otp}
-    newOtp[name].isFocused = false
-    setOtp(newOtp)
-  }
+  useEffect(() => {
+    inputRefs.first.current.focus();
+  }, []);
+
+  const handleBackClick = () => {};
+  const [otp, setOtp] = useState({
+    first: {
+      value: '',
+      isFocused: false,
+    },
+    second: {
+      value: '',
+      isFocused: false,
+    },
+    third: {
+      value: '',
+      isFocused: false,
+    },
+    fourth: {
+      value: '',
+      isFocused: false,
+    },
+  });
+
+  const handleFocussed = name => {
+    let newOtp = {...otp};
+    newOtp[name].isFocused = true;
+    setOtp(newOtp);
+  };
+  const handleBlurred = name => {
+    let newOtp = {...otp};
+    newOtp[name].isFocused = false;
+    setOtp(newOtp);
+  };
+
+  const handleKeyPress = (name, key) => {
+    debugger;
+    console.log(otp[name].value);
+    debugger;
+    if (otp[name].value == '' && key == 'Backspace') {
+      let prevInput =
+        name == 'fourth' ? 'third' : name == 'third' ? 'second' : 'first';
+      inputRefs[prevInput].current.focus();
+    }
+  };
+
+  const handleOtpChange = (text, name) => {
+    let newOtp = {...otp};
+    newOtp[name].value = text;
+    setOtp(newOtp);
+    if (text != '') {
+      let nextInput =
+        name == 'first' ? 'second' : name == 'second' ? 'third' : 'fourth';
+      inputRefs[nextInput].current.focus();
+    }
+  };
+
+  const handleLoginPress = () =>{}
+
   return (
     <ImageBackground
       style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}
@@ -50,15 +87,13 @@ const EnterOTP = () => {
       imageStyle={{resizeMode: 'contain'}}>
       <View
         style={{
-            flex:1,
-          flexDirection: 'row',
-          justifyContent: 'flex-start',
+          flex: 1,
           width: width * 0.85,
-          marginVertical: 10,
+          marginTop: 20,
         }}>
         <BackButton handleBackClick={handleBackClick} />
       </View>
-      <View style={{flex:10,alignItems: 'center', justifyContent: 'center'}}>
+      <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
         <Text
           style={{
             fontFamily: 'Quicksand-Bold',
@@ -82,35 +117,98 @@ const EnterOTP = () => {
             justifyContent: 'space-around',
             width: width * 0.85,
           }}>
-          <TextInput 
-          value={otp.first.value} 
-          onFocus={() => handleFocussed('first')}
-          onBlur={() => handleBlurred('first')}
-          onChangeText={() => {}}
-           style={{...styles.input, backgroundColor: otp.first.isFocused? 'rgba(31, 137, 219, 0.25)':'#F3F3F3'}} 
-           />
-          <TextInput 
-          value={otp.second.value} 
-          onFocus={() => handleFocussed('second')}
-          onBlur={() => handleBlurred('second')}
-          onChangeText={() => {}} 
-          style={{...styles.input, backgroundColor: otp.second.isFocused? 'rgba(31, 137, 219, 0.25)':'#F3F3F3'}} 
+          <TextInput
+            keyboardType="number-pad"
+            ref={inputRefs.first}
+            value={otp.first.value}
+            maxLength={1}
+            onFocus={() => handleFocussed('first')}
+            onBlur={() => handleBlurred('first')}
+            onChangeText={text => handleOtpChange(text, 'first')}
+            style={{
+              ...styles.input,
+              fontFamily: 'Quicksand-Bold',
+              fontSize: 20,
+              color: '#35B3E9',
+              textAlign: 'center',
+              backgroundColor: otp.first.isFocused
+                ? 'rgba(31, 137, 219, 0.25)'
+                : '#F3F3F3',
+            }}
+            onKeyPress={({nativeEvent}) =>
+              handleKeyPress('first', nativeEvent.key)
+            }
           />
-          <TextInput 
-          value={otp.third.value} 
-          onFocus={() => handleFocussed('third')}
-          onBlur={() => handleBlurred('third')}
-          onChangeText={() => {}} 
-          style={{...styles.input, backgroundColor: otp.third.isFocused? 'rgba(31, 137, 219, 0.25)':'#F3F3F3'}}
+          <TextInput
+            keyboardType="number-pad"
+            ref={inputRefs.second}
+            value={otp.second.value}
+            maxLength={1}
+            onFocus={() => handleFocussed('second')}
+            onBlur={() => handleBlurred('second')}
+            onChangeText={text => handleOtpChange(text, 'second')}
+            style={{
+              ...styles.input,
+              fontFamily: 'Quicksand-Bold',
+              fontSize: 20,
+              color: '#35B3E9',
+              textAlign: 'center',
+              backgroundColor: otp.second.isFocused
+                ? 'rgba(31, 137, 219, 0.25)'
+                : '#F3F3F3',
+            }}
+            onKeyPress={({nativeEvent}) =>
+              handleKeyPress('second', nativeEvent.key)
+            }
           />
-          <TextInput 
-          value={otp.fourth.value} 
-          onFocus={() => handleFocussed('fourth')}
-          onBlur={() => handleBlurred('fourth')}
-           onChangeText={() => {}} 
-          style={{...styles.input, backgroundColor: otp.fourth.isFocused? 'rgba(31, 137, 219, 0.25)':'#F3F3F3'}} 
+          <TextInput
+            keyboardType="number-pad"
+            ref={inputRefs.third}
+            value={otp.third.value}
+            maxLength={1}
+            onFocus={() => handleFocussed('third')}
+            onBlur={() => handleBlurred('third')}
+            onChangeText={text => handleOtpChange(text, 'third')}
+            style={{
+              ...styles.input,
+              fontFamily: 'Quicksand-Bold',
+              fontSize: 20,
+              color: '#35B3E9',
+              textAlign: 'center',
+              backgroundColor: otp.third.isFocused
+                ? 'rgba(31, 137, 219, 0.25)'
+                : '#F3F3F3',
+            }}
+            onKeyPress={({nativeEvent}) =>
+              handleKeyPress('third', nativeEvent.key)
+            }
+          />
+          <TextInput
+            keyboardType="number-pad"
+            ref={inputRefs.fourth}
+            value={otp.fourth.value}
+            maxLength={1}
+            onFocus={() => handleFocussed('fourth')}
+            onBlur={() => handleBlurred('fourth')}
+            onChangeText={text => handleOtpChange(text, 'fourth')}
+            style={{
+              ...styles.input,
+              fontFamily: 'Quicksand-Bold',
+              fontSize: 20,
+              color: '#35B3E9',
+              textAlign: 'center',
+              backgroundColor: otp.fourth.isFocused
+                ? 'rgba(31, 137, 219, 0.25)'
+                : '#F3F3F3',
+            }}
+            onKeyPress={({nativeEvent}) =>
+              handleKeyPress('fourth', nativeEvent.key)
+            }
           />
         </View>
+      </View>
+      <View style={{flex: 1, justifyContent: 'flex-end', marginBottom:30}}>
+        <AuthFooterText handleLoginPress={handleLoginPress}/>
       </View>
     </ImageBackground>
   );

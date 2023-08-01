@@ -157,7 +157,7 @@ const Dropdown = ({label, title, options, value, variableName, onChangeValue}) =
           setModalVisible(true);
         }}
       >
-        <Text>{selectedOption ? selectedOption.label:title}</Text>
+        <Text style={{padding:4}}>{selectedOption ? selectedOption.label:title}</Text>
         </TouchableOpacity>
       {modalVisible && renderModal()}
     </View>

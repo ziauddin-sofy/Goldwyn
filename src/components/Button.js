@@ -1,6 +1,6 @@
 import {Dimensions, StyleSheet, TouchableHighlight,Text} from 'react-native';
 
-const Button = ({lablel, handleButtonPress}) => {
+const Button = ({label, handleButtonPress}) => {
   const {width, height} = Dimensions.get('screen');
   const handleClick = () => {
     handleButtonPress();
@@ -9,7 +9,7 @@ const Button = ({lablel, handleButtonPress}) => {
     <TouchableHighlight
       style={{...styles.loginButton, width: width * 0.85}}
       onPress={handleClick}>
-      <Text style={styles.buttonText}>{lablel}</Text>
+      <Text style={styles.buttonText}>{label}</Text>
     </TouchableHighlight>
   );
 };

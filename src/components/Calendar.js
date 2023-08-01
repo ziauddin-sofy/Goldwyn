@@ -91,7 +91,7 @@ const CustomCalendar = ({
   return (
     <View>
       <View style={styles.labelWrapper}>
-        <Text style={styles.label}>Label</Text>
+        <Text style={styles.label}>{label}</Text>
       </View>
       <TouchableOpacity
         style={{
@@ -105,7 +105,7 @@ const CustomCalendar = ({
           setIsFocused(true);
           setModalVisible(true);
         }}>
-        <Text>{selectedDate?selectedDate:'YYYY-MM-DD'}</Text>
+        <Text style={{padding:4}}>{selectedDate?selectedDate:'YYYY-MM-DD'}</Text>
       </TouchableOpacity>
       {modalVisible && renderModal()}
     </View>

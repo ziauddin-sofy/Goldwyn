@@ -155,7 +155,7 @@ const RegisterationForm = () => {
       </View>
 
       <View>
-        <Button lablel="Next" handleButtonPress={handleNextClick} />
+        <Button label="Next" handleButtonPress={handleNextClick} />
         <View
           style={{
             flexDirection: 'row',
